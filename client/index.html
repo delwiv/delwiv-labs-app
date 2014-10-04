@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="delwiv-labs-app">
+<head>
+    <meta charset="utf-8" />
+    <base href="/"/>
+    <title>ngChat.js by delwiv</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+</head>
+<body>
+    <div class="container">
+        <nav role="navigation" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Playmoapp</a>
+            </div>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a ui-sref="#" class="dropdown-toggle" data-toggle="dropdown">Modules<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ui-sref="mod-home">Module Home</a></li>
+                            <li><a ui-sref="mod-restaurant">Module Restaurant</a></li>
+                            <li><a ui-sref="mod-gallerie">Module Gallerie</a></li>
+                            <li><a ui-sref="modX">Module X</a></li>
+                            <li><a ui-sref="modY">Module Y</a></li>
+                            <li><a ui-sref="modZ">Module Z</a></li>
+                        </ul>
+                    </li>   
+                </ul>
+                <div class="nav navbar-nav navbar-right" ng-controller="LoginController as loginCtrl">
+                    <form class="form-horizontal" ng-submit="login()" ng-hide="logged">
+                        <input type="email" ng-model="creds.email" placeholder="E-mail"/>
+                        <input type="password" ng-model="creds.password" placeholder="Password"/>
+                        <input type="submit" value="Login"/>
+                    </form>
+                    <form ng-submit="logout()" ng-show="logged">
+                        Utilisateur connecté : {{user.username || user.email}}
+                        <input type="submit" value="Logout"/>
+                    </form>
+                </div>
+            </div>    
+
+        </nav>
+
+        <div id="main">
+            <div ui-view></div>
+        </div>
+
+
+        
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="js/libs/angular-1.2.24/angular-route.min.js"></script>
+    <script src="js/libs/angular-1.2.24/angular-resource.min.js"></script>
+    <script src="js/libs/angular-ui-router.min.js"></script>
+    <script src="dist/playmoapp.min.js"></script>
+    <script src="js/libs/autofill-event.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+</body>
+</html>
