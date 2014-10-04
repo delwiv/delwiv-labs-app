@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="delwiv-labs-app">
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <base href="/"/>
-    <title>ngChat.js by delwiv</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <title>delwiv-labs.ovh - My own projects</title>
+    <link rel="stylesheet" href="dist/bootstrap/bootstrap.min.css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"/> -->
 </head>
 <body>
     <div class="container">
@@ -17,23 +17,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#" class="navbar-brand">Playmoapp</a>
+                <a  href="#" ui-sref="home" class="navbar-brand">delwiv-labs</a>
             </div>
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a ui-sref="#" class="dropdown-toggle" data-toggle="dropdown">Modules<span class="caret"></span></a>
+                        <a  href="#" class="dropdown-toggle" data-toggle="dropdown">Apps<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="mod-home">Module Home</a></li>
-                            <li><a ui-sref="mod-restaurant">Module Restaurant</a></li>
-                            <li><a ui-sref="mod-gallerie">Module Gallerie</a></li>
-                            <li><a ui-sref="modX">Module X</a></li>
-                            <li><a ui-sref="modY">Module Y</a></li>
-                            <li><a ui-sref="modZ">Module Z</a></li>
+                            <li><a ui-sref="app-node-chat">08-2014 ~ chat - node.js</a></li>
+                            <li><a ui-sref="app-todolist-manager">09-2014 ~ todolist manager - node.js/Strongloop/AngularJS</a></li>
+                            <li><a ui-sref="app-chat-returns">10-2014 ~ chat returns - node.js/Strongloop/AngularJS</a></li>
+                            <!-- <li><a href="#" ui-sref="modX">Module X</a></li>
+                            <li><a href="#" ui-sref="modY">Module Y</a></li>
+                            <li><a href="# " ui-sref="modZ">Module Z</a></li>-->
                         </ul>
-                    </li>   
+                    </li>
                 </ul>
-                <div class="nav navbar-nav navbar-right" ng-controller="LoginController as loginCtrl">
+                <!-- <div class="nav navbar-nav navbar-right" ng-controller="LoginController as loginCtrl">
                     <form class="form-horizontal" ng-submit="login()" ng-hide="logged">
                         <input type="email" ng-model="creds.email" placeholder="E-mail"/>
                         <input type="password" ng-model="creds.password" placeholder="Password"/>
@@ -43,8 +43,8 @@
                         Utilisateur connecté : {{user.username || user.email}}
                         <input type="submit" value="Logout"/>
                     </form>
-                </div>
-            </div>    
+                </div> -->
+            </div>
 
         </nav>
 
@@ -53,15 +53,17 @@
         </div>
 
 
-        
+
     </div>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="js/libs/angular-1.2.24/angular-route.min.js"></script>
-    <script src="js/libs/angular-1.2.24/angular-resource.min.js"></script>
-    <script src="js/libs/angular-ui-router.min.js"></script>
-    <script src="dist/playmoapp.min.js"></script>
-    <script src="js/libs/autofill-event.js"></script>
-    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="dist/jquery/jquery.min.js"></script>
+    <script src="dist/bootstrap/bootstrap.min.js"></script>
+    <script src="dist/angular/angular.min.js"></script>
+    <script src="dist/angular/angular-route.min.js"></script>
+    <script src="dist/angular/angular-resource.min.js"></script>
+    <script src="dist/libs/angular-ui-router.min.js"></script>
+    <script src="dist/libs/ui-bootstrap.min.js"></script>
+    <script src="dist/libs/autofill-event.js"></script>
+    <script src="dist/libs/engine.io.js"></script>
+    <script src="dist/delwiv-labs-app.min.js"></script>
 </body>
 </html>

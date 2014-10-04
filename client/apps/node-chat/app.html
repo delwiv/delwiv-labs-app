@@ -1,0 +1,82 @@
+
+<div id="app">
+  <!-- <button onclick="disconnect()">Disconnect</button> -->
+  <table id="tableMessages">
+
+  </table>
+  <table><tr><ul id="users"></ul></tr></table>
+
+  
+  <form id="sendMessage" action="">
+    <input id="m" autocomplete="off" onkeypress="inputChanged()"/>
+    <button>Send</button>
+  </form>
+  <script src="apps/node-chat/javascript/socket.io.js"></script>
+  <!-- // <script src="/public/javascript/jquery.min.js"></script> -->
+  <script src="apps/node-chat/javascript/User.js"></script>
+  <script>
+    var socket = io();
+    var currentUser;
+    var userList = [];
+
+    socket.on('connect', function(){
+      currentUser = new User(prompt("What's your name?"));
+      socket.emit('addUser', currentUser);
+      $('#m').focus();
+    });
+
+    $('')
+
+    socket.on('update', function(users){
+      userList = users;
+      $('#users').empty();
+      for (var i = 0 ; i < userList.length; i++){
+        var strUser = "";
+        strClass = "otherUser"
+        if(userList[i].name === currentUser.name){
+          strClass = "currentUser";
+        } 
+        strUser += "<li class='" + strClass + " " + userList[i].status + "'>" + userList[i].name + "</li>"
+        
+        if(userList[i].status === "writing"){
+          strUser += "</b>"
+        }
+
+        $('#users').append(strUser);
+      }
+    });
+
+    socket.on('chat message', function(userName, date, msg){
+      strClass = "otherUser";
+      if(userName === currentUser.name){
+        strClass = "currentUser";
+      }
+      $('#tableMessages').append('<tr><td><li class="userName ' + strClass + '">' 
+        + date + ' - ' + userName  + '</li></td><td><li class="' 
+        + strClass + '">' + msg + '</li></td></tr>');
+    });
+
+    $('#sendMessage').submit(function(){
+      socket.emit('chat message', currentUser.name, $('#m').val());
+      $('#m').val('');
+      $("html, body").animate({ scrollTop: $(document).height() }, 100);
+      return false;
+    });
+
+    inputChanged = function(){
+      var newStatus = "";
+      if($('#m').val() !== '') {
+        newStatus = "writing";
+      } else { 
+        newStatus = "inactive";
+      }
+      if (currentUser.status !== newStatus){
+        currentUser.status = newStatus;
+        socket.emit('state changed', currentUser);
+      }
+    }
+    disconnect = function(){
+      socket.emit('disconnect', currentUser);
+    }
+  </script>
+</div>

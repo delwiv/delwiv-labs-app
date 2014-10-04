@@ -14,21 +14,27 @@ var ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('watch-js', function () {
     watch('client/js/**/*.js', function(files){
-			gulp.start('scripts');	
+			gulp.start('scripts');
 		});
 });
 
-gulp.task('bower', function(){
-    return bower()
-    .pipe(gulp.dest('client/dist'))
-})
+// gulp.task('bower', function(){
+//     return bower()
+//     // .pipe(recess().on('error', gutil.log))
+//     .pipe(concat('delwiv-labs-deps.js'))
+//     .pipe(rename({suffix: '.min'}))
+//     .pipe(uglify())
+//     .pipe(gulp.dest('client/dist'))
+// })
 
 
 // Concatenate JS Files
 gulp.task('scripts', function() {
-	return gulp.src('client/js/**/*.js')
+	return gulp.src([
+		'client/js/*.js',
+		'client/js/*/*.js'])
 	.pipe(ngAnnotate())
-	//.pipe(recess().on('error', gutil.log))
+	// .pipe(recess().on('error', gutil.log))
 	.pipe(concat('delwiv-labs-app.js'))
 	.pipe(rename({suffix: '.min'}))
 	.pipe(uglify())
@@ -36,4 +42,4 @@ gulp.task('scripts', function() {
 });
 
 // Default Task
-	gulp.task('default', ['bower']);
+	gulp.task('default', ['scripts', 'watch-js']);
