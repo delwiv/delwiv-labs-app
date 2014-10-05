@@ -1,11 +1,4 @@
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box;
-}
-body { 
-    font: 13px Helvetica, Arial; 
-}
+
 
 .writing {
     font-weight: bold; 
@@ -21,32 +14,43 @@ body {
     color: black;
 }
 
-#users {
-    display: inline-block;
-    position: fixed;
+#usersTable {
+
+}
+
+.users {
+   display: inline-block;
+   position: fixed;
+   border: 2px groove;
+   border-radius: 10px;
+}
+
+.users li {
     list-style: none;
-    padding:5px;
-    border: solid black;
 }
 
 #sendMessage { 
-    background: #000;
-    padding: 3px; 
-    position: fixed; 
-    bottom: 0; 
-    width: 100%; 
+    /*background: #000;*/
+    /*padding: 3px; */
+    /*position: absolute; */
+    bottom: 10;
+    margin-bottom: 15px;
+    margin-top: 30px;
+    height: 40px;
 }
 #sendMessage input { 
-    border: 0; 
-    padding: 10px; 
-    width: 90%; 
-    /*margin-right: .5%; */
+    /*border: 0; */
+    /*padding: 10px; */
+    width: 85%; 
+    margin: auto;
+    height: 40px;
 }
 #sendMessage button { 
-    width: 9%; 
+    width: 14%; 
     background: rgb(130, 224, 100); 
-    border: none; 
-    padding: 10px;
+    border: none;
+    height: 40px; 
+    /*padding: 10px;*/
 }
 
 #tableMessages .userName {
@@ -54,10 +58,11 @@ body {
 }
 
 #tableMessages { 
-    width:80%;
-    display:inline-block;
+    margin-top: 35px;
+    overflow:auto;
+    /*position:relative;*/
+    /*display:block;*/
     list-style-type: none; 
-    margin: auto; 
     padding-bottom: 40px;
 }
 #tableMessages li { 

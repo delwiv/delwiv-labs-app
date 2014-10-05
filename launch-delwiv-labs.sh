@@ -1,2 +1,2 @@
 #!/bin/sh
-slc run --cluster cpus 
+node ./server/server.js

@@ -32,5 +32,13 @@
   "app": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "Todo": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "TodoList": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

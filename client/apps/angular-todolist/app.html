@@ -1,0 +1,114 @@
+
+<link rel="stylesheet" type="text/css" href="apps/angular-todolist/css/styles.css"/>
+<div class="app">
+
+ <div class="row" ng-controller="TodoListController as listCtrl">
+   <div class="options col-md-3">
+    <h2>Options</h2>
+    <hr>
+    <label class="">Order lists by</label>
+    <ul>
+        <li>
+            <input type="radio" 
+            value="created"
+            ng-model="listCtrl.options.displayListOrder"
+            ng-change="listCtrl.updateDisplay()"/> Date created
+        </li>
+
+        <li>
+            <input type="radio"
+            value="modified"
+            ng-model="listCtrl.options.displayListOrder"
+            ng-change="listCtrl.updateDisplay()" /> Date modified
+        </li>
+
+        <li>
+            <input type="checkbox"
+            ng-change="listCtrl.updateDisplay()"
+            ng-model="listCtrl.options.displayListInvert"/> Invert</li>
+        </ul>
+        <label>Order items by</label>
+        <ul>
+            <li>
+                <input type="radio" 
+                ng-model="listCtrl.options.displayTodosOrder"
+                value="created"
+                ng-change="listCtrl.updateDisplay()"/> 
+                Date created
+            </li>
+
+            <li>
+                <input type="radio"
+                ng-model="listCtrl.options.displayTodosOrder"
+                value="modified"
+                ng-change="listCtrl.updateDisplay()"/>
+                Date modified
+            </li>
+
+            <li>
+               <input type="checkbox"
+               ng-model="listCtrl.options.displayTodosInvert"
+               ng-change="listCtrl.updateDisplay()"/> 
+               Invert
+           </li>
+       </ul>
+
+       <label>Misc</label>
+       <ul>
+        <li>
+            <input type="checkbox"
+            ng-model="listCtrl.options.displayCheckedTodos"
+            ng-change="listCtrl.updateDisplay()"/> Display checked items
+        </li>
+    </ul>   
+
+</div>
+<div class="col-md-9">
+
+    <h1>Todo list manager</h1>
+
+    <p ng-hide="listCtrl.todoLists.length">You have no todo list yet, add one!</p>
+
+    <form ng-submit="listCtrl.createList()">
+        <input type="text" ng-model="listCtrl.todoList.title"/>
+        <input type="submit" value="Add a list"/>
+    </form>
+
+    <div ng-show="listCtrl.todoLists.length">
+
+        <h3>Existing todo lists</h3>
+
+    </div>
+
+    <div class="todoList repeated-item well" ng-repeat="todoList in listCtrl.todoLists">
+
+        <form class="well" ng-submit="listCtrl.updateList(todoList)">
+
+
+            <img href="#" title="Remove that list!" class="icon pull-right" src="apps/angular-todolist/img/icon_close.png" ng-click="listCtrl.removeList(todoList)">
+            <img href="#" title="Empty that list!" class="icon pull-right" src="apps/angular-todolist/img/icon_empty.png" ng-click="listCtrl.emptyList(todoList)">
+            <strong>
+                <input title="Change title, press enter to submit new title" ng-model="listCtrl.todoLists[$index].title" type="text"/>
+            </strong>
+        </form>
+
+        <div class="todo repeated-item" ng-class="{'done': todo.done, 'undone': !todo.done}" ng-repeat="todo in todoList.todos | filter: {display: true}">
+           <!-- |  -->
+           <form ng-submit="listCtrl.updateTodo(todo)">
+            <input ng-model="todo.done" ng-change="listCtrl.updateTodo(todo)" type="checkbox" class="todo"/>    
+            <input ng-model="todo.text" type="text"/><span class="glyphicon glyphicon-remove"></span>
+
+            <!-- 
+            <img href="#" title="Remove that item" height="5" width="5" class="icon pull-right" src="apps/angular-todolist/img/icon_close.png" ng-click="listCtrl.removeTodo(todo)"> -->
+        </form>
+    </div>
+    <form ng-submit="listCtrl.addTodo(todoList)">
+        <input type="text" ng-model="listCtrl.todoLists[$index].newTodo.text" 
+        placeholder="Add a todo item"/>
+    </form>
+
+</div>
+</div>
+</div>
+</div>
+</div>

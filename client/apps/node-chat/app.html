@@ -1,31 +1,47 @@
-
-<div id="app">
+<link rel="stylesheet" href="apps/node-chat/styles/styles.css">
+<h1>Delwiv's node.js chat app</h1>
+<div class="app">
   <!-- <button onclick="disconnect()">Disconnect</button> -->
-  <table id="tableMessages">
+  <div class="row">
+    <table class="col-md-8" id="tableMessages">
+    </table>
+     <div class="col-sm-2 users">
+    <strong>Users</strong>
+    <ul id="users"> </ul>  
+  </div>
 
-  </table>
-  <table><tr><ul id="users"></ul></tr></table>
+  </div>
 
-  
-  <form id="sendMessage" action="">
-    <input id="m" autocomplete="off" onkeypress="inputChanged()"/>
-    <button>Send</button>
-  </form>
+
+  <div class="row">
+    <form id="sendMessage" class="col-md-12" action="">
+      <input id="m" autocomplete="off" onkeypress="inputChanged()"/>
+      <button>Send</button>
+    </form>
+  </div>
+ 
   <script src="apps/node-chat/javascript/socket.io.js"></script>
   <!-- // <script src="/public/javascript/jquery.min.js"></script> -->
   <script src="apps/node-chat/javascript/User.js"></script>
   <script>
+    console.log($.cookie());
     var socket = io();
-    var currentUser;
+    var currentUser = $.cookie('currentUser');
     var userList = [];
 
+    function promptUsername(){
+      return  prompt("What's your name?");      
+    };
+
     socket.on('connect', function(){
-      currentUser = new User(prompt("What's your name?"));
+
+      currentUser = new User(promptUsername());
+      console.log(currentUser);
+
       socket.emit('addUser', currentUser);
       $('#m').focus();
     });
 
-    $('')
 
     socket.on('update', function(users){
       userList = users;
@@ -42,8 +58,11 @@
           strUser += "</b>"
         }
 
+        strUser = 
+
         $('#users').append(strUser);
       }
+      // $('#users').append('<button class="btn btn-info" onClick="changeUsername()">Change Username</button>');
     });
 
     socket.on('chat message', function(userName, date, msg){
@@ -63,6 +82,11 @@
       return false;
     });
 
+    // changeUsername = function(){
+    //   promptUsername();
+    //   socket.emit('changeUsername', currentUser);
+    // };
+
     inputChanged = function(){
       var newStatus = "";
       if($('#m').val() !== '') {
@@ -76,7 +100,7 @@
       }
     }
     disconnect = function(){
-      socket.emit('disconnect', currentUser);
+      socket.emit('disconnect');
     }
   </script>
 </div>

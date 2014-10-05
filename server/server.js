@@ -1,14 +1,12 @@
-var loopback = require('loopback'),
-    app = loopback()
-  , https = require('https')
-  , sslConfig = require('./ssl-config')
-  , server = https.createServer(sslConfig, app)
-  , socket = require('socket.io');
-
-
-
-var boot = require('loopback-boot');
-var fs = require('fs');
+var loopback  = require('loopback');
+var app       = loopback();
+var https     = require('https');
+var sslConfig = require('./ssl-config');
+var server    = https.createServer(sslConfig, app);
+var socket    = require('socket.io');
+var boot      = require('loopback-boot');
+var fs        = require('fs');
+// var http      = require('http');
 
 // var server = http.createServer(app);
 // var sslConfig = require('./ssl-config');
@@ -39,6 +37,12 @@ var path = require('path');
 // Angular main website
 app.use(loopback.static(path.resolve(__dirname, '../client')));
 
+// set up a route to redirect http to https
+// http.get('http://delwiv-labs.ovh'
+//     ,function(req,res){  
+//     res.redirect('https://delwiv-labs.ovh'+req.url)
+// });
+
 // Project apps
 // app.use(loopback.static(path.resolve(__dirname, '../apps')));
 
@@ -55,9 +59,11 @@ app.use(loopback.errorHandler());
 
 app.start = function() {
   // start the web server
+  // var unsecuredServer = http.createServer();
+  // unsecuredServer.listen('3000');
   server.listen('3033', function() {
     app.emit('started');
-    console.log("Secured Express server listening on port 3000");
+    console.log("Secured Express server listening on port 3033");
     initWebSocket();
   });
 }
@@ -69,11 +75,23 @@ if (require.main === module) {
   app.start();
 }
 
+getDate = function(){
+      return new Date().toLocaleTimeString();
+    }
+
 initWebSocket = function() {
-  var io = socket.listen(server)
+  var io = socket.listen(server);
+
+  eval(fs.readFileSync(path.resolve(__dirname,
+    '../client/apps/node-chat/javascript/User.js')).toString());
+
+  var users = [];
+
   io.on('connection', function(socket){
     // console.log('a user connected');
-
+    
+    io.to(socket.id).emit('chat message', 'Delwiv', getDate(), 'Welcome on my node.js chat.');    
+    
     socket.on('addUser', function(user){
         // socket.user = userName;
         console.log(user.name + ' has joined.');
@@ -95,14 +113,26 @@ initWebSocket = function() {
     socket.on('chat message', function(userName, msg){
       console.log('message from ' + userName + ' : ' + msg);
       users[getIndex(users, userName)].status = "inactive";
-      var date = new Date().toLocaleTimeString();
-      io.emit('chat message', userName, date, msg);
+      
+      io.emit('chat message', userName, getDate(), msg);
       updateClients();
     });
+
+    
 
     updateClients = function(){
       io.emit('update', users);
     }
+
+    socket.on('changeUsername', function(user){
+      for( var i = 0; i < users.length; i++ ){
+        if(users[i].id === user.id){
+          socket.emit('chat message', users[i].name, 'Info : ' + users[i].name + ' is no known as ' + user.name + '.');
+          users[i].name = user.name; 
+        }
+      }
+      updateClients();
+    });
 
     socket.on('disconnect', function(){
       debugger;
