@@ -6,7 +6,7 @@ var server    = https.createServer(sslConfig, app);
 var socket    = require('socket.io');
 var boot      = require('loopback-boot');
 var fs        = require('fs');
-// var http      = require('http');
+var http      = require('http');
 
 // var server = http.createServer(app);
 // var sslConfig = require('./ssl-config');
@@ -59,8 +59,10 @@ app.use(loopback.errorHandler());
 
 app.start = function() {
   // start the web server
-  // var unsecuredServer = http.createServer();
-  // unsecuredServer.listen('3000');
+   var unsecuredServer = http.createServer(app);
+   unsecuredServer.listen('3000', function(){
+    console.log("Unsecured Express server listening on port 3000");
+   });
   server.listen('3033', function() {
     app.emit('started');
     console.log("Secured Express server listening on port 3033");

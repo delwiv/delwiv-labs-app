@@ -45,7 +45,7 @@ angular.module('app.controllers', [])
 
 };
 break;
- 
+
 case '/home':
 $scope.menu = {
 	"title": "Home",
@@ -90,6 +90,26 @@ $scope.menu = {
 		"isUrl": true
 	}
 	]
+
+};
+break;
+
+case '/dojo':
+$scope.menu = {
+	"title": "Dojo learning",
+	"description": "This is where I'm learning Dojo"
+	// "entries": [
+	// {
+	// 	"name": "About",
+	// 	"path": "chat-node.about",
+	// 	"isState": true
+	// },
+	// {
+	// 	"name": "Get code!",
+	// 	"url": "github",
+	// 	"isUrl": true
+	// }
+	// ]
 
 };
 break;
