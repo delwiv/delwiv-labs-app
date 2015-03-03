@@ -1,5 +1,7 @@
 html,body{
-    height: 100%
+    /*height: 100%;*/
+    max-width:1080px;
+    margin:auto;
 }
 
 .leftMenuDescription {
@@ -19,11 +21,24 @@ html,body{
 	padding:20px;
 }
 
+.navbar-right {
+  padding-right:10px;
+}
+
+.my-body {
+  padding-bottom:100px;
+}
+
 .my-app {
   background-color: white;
-  border : 1px solid black;
+  border : 1px groove;
+  border-radius: 2px;
   padding: 10px;
   margin:10px;
+}
+
+.app-img {
+  height: 50px;
 }
 
 .icon {
