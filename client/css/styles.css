@@ -1,0 +1,27 @@
+html,body{
+    height: 100%
+}
+
+.leftMenuDescription {
+	margin-top: 25px;
+}
+
+.lefMenuTitle{
+	text-align: center;
+}
+
+.app {
+	word-wrap: break-word;
+	border: 5px groove;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	padding-bottom: 60px;
+	padding:20px;
+}
+
+.icon {
+	text-align: center;
+	max-height: 32px;
+	display: block;
+	margin: auto;
+}

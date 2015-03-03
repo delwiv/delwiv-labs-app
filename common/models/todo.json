@@ -1,0 +1,22 @@
+{
+  "name": "Todo",
+  "base": "PersistedModel",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "done": {
+      "type": "boolean"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "TodoList": {
+      "type": "belongsTo",
+      "model": "TodoList",
+      "foreignKey": "listId"
+    }
+    },
+  "acls": [],
+  "methods": []
+}
