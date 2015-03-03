@@ -19,6 +19,13 @@ html,body{
 	padding:20px;
 }
 
+.my-app {
+  background-color: white;
+  border : 1px solid black;
+  padding: 10px;
+  margin:10px;
+}
+
 .icon {
 	text-align: center;
 	max-height: 32px;
